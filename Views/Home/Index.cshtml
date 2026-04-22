@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<BusinessNewsApp.Models.Article>
+
+@{
+    ViewData["Title"] = "Business News";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Top Business Headlines</h1>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var article in Model)
+            {
+                <div class="col-12 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="text-muted mb-1">
+                                <strong>Source:</strong> @article.Source.Name
+                            </p>
+
+                            <h5 class="card-title">@article.Title</h5>
+
+                            <a href="@article.Url" target="_blank" class="btn btn-outline-primary btn-sm">
+                                Read Full Article
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                No news articles found. Check your API key or internet connection.
+            </div>
+        }
+    </div>
 </div>
